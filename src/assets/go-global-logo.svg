@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-labelledby="gg-title gg-desc">
+  <title id="gg-title">Go Global</title>
+  <desc id="gg-desc">Graduation cap above ocean waves, enclosed in a teal ring.</desc>
+
+  <defs>
+    <clipPath id="circle-clip">
+      <circle cx="250" cy="250" r="205" />
+    </clipPath>
+  </defs>
+
+  <!-- Outer teal ring -->
+  <circle cx="250" cy="250" r="225" fill="none" stroke="#2EC4B6" stroke-width="16" />
+
+  <!-- Inner navy disc -->
+  <circle cx="250" cy="250" r="205" fill="#0B2545" />
+
+  <g clip-path="url(#circle-clip)">
+    <!-- Globe longitude -->
+    <ellipse cx="250" cy="250" rx="70" ry="195"
+             fill="none" stroke="#0B2545" stroke-opacity="0.5" stroke-width="3" />
+
+    <!-- GRADUATION CAP — restored to original geometry & tones -->
+    <g id="graduation-cap">
+      <!-- Skullcap / Base Band (original darker gold #DA9100) -->
+      <path d="M 195 200 Q 250 225 305 200 L 305 228 Q 250 258 195 228 Z" fill="#DA9100" />
+
+      <!-- Top Diamond Board (original gold #EAA123) -->
+      <polygon points="250,140 375,178 250,215 125,178" fill="#EAA123" />
+
+      <!-- Top Surface Highlight (original lighter gold #F3AE26 @ 0.3) -->
+      <polygon points="250,140 375,178 250,183 125,178" fill="#F3AE26" opacity="0.3" />
+
+      <!-- Tassel Wire & Button (original gold #EAA123) -->
+      <path d="M 330 191 L 331 245" fill="none" stroke="#EAA123" stroke-width="5" stroke-linecap="round" />
+      <circle cx="331" cy="252" r="7.5" fill="#EAA123" />
+    </g>
+
+    <!-- Waves -->
+    <path d="M 60 270 Q 150 240 250 280 T 440 275"
+          fill="none" stroke="#2EC4B6" stroke-width="20" stroke-linecap="round" />
+    <path d="M 60 315 Q 150 285 250 325 T 440 320"
+          fill="none" stroke="#2EC4B6" stroke-opacity="0.45" stroke-width="20" stroke-linecap="round" />
+    <path d="M 60 375 Q 150 335 260 380 T 440 370"
+          fill="none" stroke="#FFFFFF" stroke-width="20" stroke-linecap="round" />
+  </g>
+</svg>

@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+  /* Global Tides Brand Colors */
+  --color-brand-navy: #0D2A40;
+  --color-brand-navy-light: #1A3E5C;
+  --color-brand-teal: #1F8A8A;
+  --color-brand-teal-light: #E6F3F3;
+  --color-brand-gold: #E5A93D;
+  --color-brand-gold-hover: #CF952B;
+
+  /* Text & Neutral Colors */
+  --color-ink: #0D2A40;
+  --color-ink-soft: #4A5B6B;
+  --color-sand-50: #F8F9FA;
+  --color-sand-100: #F0F2F5;
+  --color-sand-200: #E2E6EB;
+
+  /* Fonts */
+  --font-display: "Montserrat", sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  /* Body + paragraph defaults — Inter */
+  body {
+    @apply bg-white text-ink-soft font-sans antialiased;
+    font-feature-settings: 'cv11', 'ss01'; /* Inter's refined alternates */
+  }
+
+  p {
+    @apply font-sans leading-relaxed;
+  }
+
+  /* ALL headings now match the hero h1:
+     font-display + extrabold + tight tracking */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-extrabold tracking-tight text-brand-navy;
+  }
+}
+
+@layer components {
+  /* Reusable Button Component */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-brand-gold px-8 h-12 font-semibold text-brand-navy transition-all duration-300 hover:bg-brand-gold-hover hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-brand-gold/30;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border-2 border-brand-navy bg-transparent px-8 h-12 font-semibold text-brand-navy transition-all duration-300 hover:bg-brand-navy hover:text-white focus:outline-none focus:ring-4 focus:ring-brand-navy/20;
+  }
+
+  .nav-link {
+    @apply text-sm font-semibold text-ink-soft transition-colors hover:text-brand-teal;
+  }
+}
+
+/* ── University logo marquee ─────────────────────────────── */
+.marquee {
+  overflow: hidden;
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 45s linear infinite;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+.marquee__item {
+  flex: 0 0 auto;
+  width: 16rem;
+  padding-right: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .marquee__item { width: 11rem; }
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+}
