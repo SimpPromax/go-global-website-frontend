@@ -105,7 +105,7 @@ export default function Footer() {
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-sand-200">
           <p>&copy; {new Date().getFullYear()} Global Tides Migration & Advisory. All rights reserved.</p>
           <p className="text-sand-200/70">
-            Website by <span className="text-brand-gold font-medium">Leon Odhiambo</span>
+            Website by <span className="text-brand-gold font-medium">Leon.O.</span>
           </p>
           <div className="space-x-6">
             <Link to="/privacy" className="hover:text-brand-gold transition-colors">Privacy Policy</Link>
