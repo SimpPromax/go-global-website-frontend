@@ -12,6 +12,8 @@ import {
 export default function Destinations() {
   const [activeFilter, setActiveFilter] = useState('All')
   const [hovered, setHovered] = useState({})
+  // Why Study Abroad: hovered card per row — key = `why-${rowIndex}`
+  const [hoveredWhy, setHoveredWhy] = useState({})
 
   // Data for destinations
   const destinations = [
@@ -65,6 +67,31 @@ export default function Destinations() {
     }
   ]
 
+  // Why Study Abroad data
+  const whyStudyAbroad = [
+    {
+      title: 'Global Exposure',
+      desc: 'Experience new cultures, build international networks, and gain a global perspective that employers value.',
+      icon: faGlobe,
+    },
+    {
+      title: 'Career Prospects',
+      desc: 'A degree from a top international institution opens doors to higher salaries and better job opportunities worldwide.',
+      icon: faBriefcase,
+    },
+    {
+      title: 'Personal Growth',
+      desc: 'Living independently in a new country builds resilience, adaptability, and confidence.',
+      icon: faLanguage,
+    },
+  ]
+
+  // Chunk why-study-abroad into rows of 3
+  const whyRows = []
+  for (let i = 0; i < whyStudyAbroad.length; i += 3) {
+    whyRows.push(whyStudyAbroad.slice(i, i + 3))
+  }
+
   // Filter logic
   const filteredDestinations = activeFilter === 'All' 
     ? destinations 
@@ -86,6 +113,19 @@ export default function Destinations() {
     setHovered((prev) => {
       const next = { ...prev }
       delete next[rowIndex]
+      return next
+    })
+  }
+
+  // Why Study Abroad hover handlers
+  const handleWhyCardEnter = (key, cardIndex) => {
+    setHoveredWhy((prev) => ({ ...prev, [key]: cardIndex }))
+  }
+
+  const handleWhyRowLeave = (key) => {
+    setHoveredWhy((prev) => {
+      const next = { ...prev }
+      delete next[key]
       return next
     })
   }
@@ -281,36 +321,59 @@ export default function Destinations() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="group text-center p-8 bg-white shadow-lg hover:shadow-2xl transition-all duration-300 ring-1 ring-white/0 hover:ring-white/40">
-              <div className="w-16 h-16 mx-auto rounded-full bg-brand-teal-light text-brand-teal flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors duration-300">
-                <FontAwesomeIcon icon={faGlobe} />
-              </div>
-              <h3 className="text-xl font-display font-extrabold tracking-tight text-brand-navy mb-3">Global Exposure</h3>
-              <p className="text-sm text-ink-soft leading-relaxed">
-                Experience new cultures, build international networks, and gain a global perspective that employers value.
-              </p>
-            </div>
+          {/* Desktop: expanding rows of 3 — fixed content height locks row, only width animates */}
+          <div className="hidden lg:flex lg:flex-col gap-6">
+            {whyRows.map((row, rowIndex) => {
+              const key = `why-${rowIndex}`
+              return (
+                <div
+                  key={rowIndex}
+                  className="flex items-stretch gap-6"
+                  onMouseLeave={() => handleWhyRowLeave(key)}
+                >
+                  {row.map((item, i) => {
+                    const isHovered = hoveredWhy[key] === i
+                    const isOther = hoveredWhy[key] !== undefined && hoveredWhy[key] !== i
+                    return (
+                      <div
+                        key={i}
+                        onMouseEnter={() => handleWhyCardEnter(key, i)}
+                        style={{ flexGrow: isHovered ? 5 : isOther ? 3 : 4 }}
+                        className="group bg-white p-8 h-[260px] shadow-lg hover:shadow-2xl text-center transition-all duration-500 ease-out ring-1 ring-white/0 hover:ring-white/40 flex flex-col items-center self-stretch basis-0 min-w-0 overflow-hidden"
+                      >
+                        <div className="w-16 h-16 shrink-0 rounded-full bg-brand-teal-light text-brand-teal flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors duration-300">
+                          <FontAwesomeIcon icon={item.icon} />
+                        </div>
+                        <h3 className="text-xl font-display font-extrabold tracking-tight text-brand-navy mb-3 line-clamp-2">
+                          {item.title}
+                        </h3>
+                        <p className="text-sm text-ink-soft leading-relaxed line-clamp-3">
+                          {item.desc}
+                        </p>
+                      </div>
+                    )
+                  })}
+                </div>
+              )
+            })}
+          </div>
 
-            <div className="group text-center p-8 bg-white shadow-lg hover:shadow-2xl transition-all duration-300 ring-1 ring-white/0 hover:ring-white/40">
-              <div className="w-16 h-16 mx-auto rounded-full bg-brand-gold/20 text-brand-gold-hover flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors duration-300">
-                <FontAwesomeIcon icon={faBriefcase} />
+          {/* Mobile / tablet: standard grid, equal rows via auto-rows-fr */}
+          <div className="grid md:grid-cols-2 auto-rows-fr gap-6 lg:hidden">
+            {whyStudyAbroad.map((item, i) => (
+              <div
+                key={i}
+                className="group bg-white p-8 shadow-lg hover:shadow-2xl text-center transition-all duration-300 ring-1 ring-white/0 hover:ring-white/40 hover:-translate-y-1 flex flex-col h-full self-stretch"
+              >
+                <div className="w-16 h-16 shrink-0 mx-auto rounded-full bg-brand-teal-light text-brand-teal flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors duration-300">
+                  <FontAwesomeIcon icon={item.icon} />
+                </div>
+                <h3 className="text-xl font-display font-extrabold tracking-tight text-brand-navy mb-3 line-clamp-2">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-ink-soft leading-relaxed line-clamp-3">{item.desc}</p>
               </div>
-              <h3 className="text-xl font-display font-extrabold tracking-tight text-brand-navy mb-3">Career Prospects</h3>
-              <p className="text-sm text-ink-soft leading-relaxed">
-                A degree from a top international institution opens doors to higher salaries and better job opportunities worldwide.
-              </p>
-            </div>
-
-            <div className="group text-center p-8 bg-white shadow-lg hover:shadow-2xl transition-all duration-300 ring-1 ring-white/0 hover:ring-white/40">
-              <div className="w-16 h-16 mx-auto rounded-full bg-brand-navy/10 text-brand-navy flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-teal group-hover:text-white transition-colors duration-300">
-                <FontAwesomeIcon icon={faLanguage} />
-              </div>
-              <h3 className="text-xl font-display font-extrabold tracking-tight text-brand-navy mb-3">Personal Growth</h3>
-              <p className="text-sm text-ink-soft leading-relaxed">
-                Living independently in a new country builds resilience, adaptability, and confidence.
-              </p>
-            </div>
+            ))}
           </div>
 
           <div className="text-center mt-12">

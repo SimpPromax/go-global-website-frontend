@@ -99,55 +99,118 @@ export default function About() {
         </div>
       </section>
 
-      {/* WHAT WE DO */}
-      <section className="py-24 bg-sand-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16 reveal-text">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-teal-light text-brand-teal text-sm font-semibold mb-4">
-              <FontAwesomeIcon icon={faCheckCircle} className="w-4 h-4" />
-              What we do
+
+{/* WHAT WE DO */}
+<section className="py-24 bg-sand-50">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {/* Section Heading */}
+    <div className="text-center max-w-2xl mx-auto mb-16">
+      <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-teal-light text-brand-teal text-xs uppercase tracking-wider font-bold mb-4">
+        <FontAwesomeIcon icon={faCheckCircle} className="w-3.5 h-3.5" />
+        Our Services
+      </div>
+
+      <h2 className="text-3xl md:text-4xl font-display font-extrabold tracking-tight text-brand-navy mb-4">
+        What We Do
+      </h2>
+
+      <p className="text-ink-soft text-lg leading-relaxed">
+        We simplify the complex process of international migration and
+        education so you can focus on your future.
+      </p>
+    </div>
+
+    {/* Cards Grid */}
+    <div className="grid md:grid-cols-2 gap-6 items-stretch">
+
+      {/* LEFT: Academic Placement */}
+      <div className="flex">
+        <div className="group relative bg-white p-8 md:p-11 rounded-3xl md:rounded-r-none border border-sand-200 hover:border-brand-teal/40 transition-all duration-300 flex flex-col justify-between w-full inverted-corners-right">
+          <div>
+            <div className="w-14 h-14 rounded-2xl bg-brand-teal text-white flex items-center justify-center text-xl mb-7 group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors duration-300">
+              <FontAwesomeIcon icon={faGraduationCap} />
             </div>
-            <h2 className="text-3xl md:text-4xl font-display font-extrabold tracking-tight text-brand-navy mb-4">
-              What We Do
-            </h2>
-            <p className="text-ink-soft text-lg leading-relaxed">
-              We simplify the complex process of international migration and education so you can focus on your future.
+
+            <h3 className="text-2xl md:text-3xl font-display font-extrabold text-brand-navy mb-4">
+              Academic Placement
+            </h3>
+
+            <p className="text-ink-soft leading-relaxed">
+              We match your academic profile and career goals with the right
+              universities and programs across the globe.
+            </p>
+
+            <p className="text-ink-soft leading-relaxed mt-4">
+              From shortlisting destinations to preparing your application
+              materials, we ensure every step aligns with your budget,
+              timeline, and long-term ambitions.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 card-grid">
-            <div className="group bg-white p-8 rounded-xl2 border border-sand-200 shadow-sm hover:shadow-xl hover:border-brand-teal/40 hover:-translate-y-1 transition-all duration-300">
-              <div className="w-14 h-14 rounded-xl bg-brand-teal text-white flex items-center justify-center text-xl mb-6 group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors duration-300">
-                <FontAwesomeIcon icon={faGraduationCap} />
-              </div>
-              <h3 className="text-xl font-display font-extrabold text-brand-navy mb-3">Academic Placement</h3>
-              <p className="text-ink-soft text-sm leading-relaxed">
-                We match your academic profile and career goals with the right universities and programs across the globe.
-              </p>
-            </div>
+          <div className="mt-8 pt-6 border-t border-sand-200/80 flex flex-wrap gap-2">
+            <span className="text-xs font-medium px-3 py-1 rounded-full bg-sand-50 text-brand-navy">
+              University Shortlisting
+            </span>
+            <span className="text-xs font-medium px-3 py-1 rounded-full bg-sand-50 text-brand-navy">
+              Application Review
+            </span>
+            <span className="text-xs font-medium px-3 py-1 rounded-full bg-sand-50 text-brand-navy">
+              Career Alignment
+            </span>
+          </div>
+        </div>
+      </div>
 
-            <div className="group bg-white p-8 rounded-xl2 border border-sand-200 shadow-sm hover:shadow-xl hover:border-brand-teal/40 hover:-translate-y-1 transition-all duration-300">
-              <div className="w-14 h-14 rounded-xl bg-brand-navy text-white flex items-center justify-center text-xl mb-6 group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors duration-300">
+      {/* RIGHT: Stacked Cards */}
+      <div className="flex flex-col gap-6">
+
+        {/* Visa & Migration */}
+        <div className="flex-1 flex">
+          <div className="group relative bg-white p-8 md:p-9 rounded-3xl md:rounded-l-none border border-sand-200 hover:border-brand-teal/40 transition-all duration-300 flex flex-col justify-center w-full inverted-corners-left">
+            <div className="flex items-start gap-5">
+              <div className="w-14 h-14 shrink-0 rounded-2xl bg-brand-navy text-white flex items-center justify-center text-xl group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors duration-300">
                 <FontAwesomeIcon icon={faPassport} />
               </div>
-              <h3 className="text-xl font-display font-extrabold text-brand-navy mb-3">Visa & Migration</h3>
-              <p className="text-ink-soft text-sm leading-relaxed">
-                Expert guidance through student visas, documentation, and compliance to ensure a smooth transition.
-              </p>
-            </div>
 
-            <div className="group bg-white p-8 rounded-xl2 border border-sand-200 shadow-sm hover:shadow-xl hover:border-brand-teal/40 hover:-translate-y-1 transition-all duration-300">
-              <div className="w-14 h-14 rounded-xl bg-brand-gold text-brand-navy flex items-center justify-center text-xl mb-6 group-hover:bg-brand-teal group-hover:text-white transition-colors duration-300">
-                <FontAwesomeIcon icon={faHandHoldingDollar} />
+              <div>
+                <h3 className="text-xl font-display font-extrabold text-brand-navy mb-2">
+                  Visa & Migration
+                </h3>
+                <p className="text-ink-soft text-sm leading-relaxed">
+                  Expert guidance through student visas, documentation, and
+                  compliance to ensure a smooth transition.
+                </p>
               </div>
-              <h3 className="text-xl font-display font-extrabold text-brand-navy mb-3">Funding & Support</h3>
-              <p className="text-ink-soft text-sm leading-relaxed">
-                Helping you identify scholarships, education financing, and post-arrival support services.
-              </p>
             </div>
           </div>
         </div>
-      </section>
+
+        {/* Funding & Support */}
+        <div className="flex-1 flex">
+          <div className="group relative bg-white p-8 md:p-9 rounded-3xl md:rounded-l-none border border-sand-200 hover:border-brand-teal/40 transition-all duration-300 flex flex-col justify-center w-full inverted-corners-left">
+            <div className="flex items-start gap-5">
+              <div className="w-14 h-14 shrink-0 rounded-2xl bg-brand-gold text-brand-navy flex items-center justify-center text-xl group-hover:bg-brand-teal group-hover:text-white transition-colors duration-300">
+                <FontAwesomeIcon icon={faHandHoldingDollar} />
+              </div>
+
+              <div>
+                <h3 className="text-xl font-display font-extrabold text-brand-navy mb-2">
+                  Funding & Support
+                </h3>
+                <p className="text-ink-soft text-sm leading-relaxed">
+                  Helping you identify scholarships, education financing,
+                  and post-arrival support services.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
 
 {/* WHY STUDY ABROAD (benefits + support) */}
 <section className="py-24 bg-[#2251FF] relative overflow-hidden">

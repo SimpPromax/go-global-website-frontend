@@ -65,13 +65,18 @@ export default function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
+            <nav className="hidden lg:flex items-center space-x-1">
               {navItems.map((item) => (
-                <NavLink 
-                  key={item.name} 
+                <NavLink
+                  key={item.name}
                   to={item.path}
-                  className={({ isActive }) => 
-                    isActive ? "text-sm font-semibold text-brand-teal" : "nav-link"
+                  className={({ isActive }) =>
+                    [
+                      'relative group px-4 py-2 rounded-full text-sm font-medium transition-all duration-200',
+                      isActive
+                        ? 'text-orange-500 font-semibold bg-orange-50'
+                        : 'text-ink-soft hover:text-orange-500 hover:bg-orange-50/60',
+                    ].join(' ')
                   }
                 >
                   {item.name}
@@ -102,16 +107,19 @@ export default function Header() {
 
         {/* Mobile Dropdown Menu */}
         {isOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-t border-sand-200 px-4 pt-2 pb-6 space-y-2 shadow-xl">
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-t border-sand-200 px-4 pt-2 pb-6 space-y-1 shadow-xl">
             {navItems.map((item) => (
               <NavLink
                 key={item.name}
                 to={item.path}
                 onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
-                  `block px-3 py-3 rounded-md text-base font-medium ${
-                    isActive ? "bg-brand-teal-light text-brand-teal" : "text-ink-soft hover:bg-sand-50 hover:text-brand-navy"
-                  }`
+                  [
+                    'flex items-center justify-between px-4 py-3 rounded-lg text-base font-medium transition-colors',
+                    isActive
+                      ? 'bg-orange-50 text-orange-500 font-semibold border-l-4 border-orange-500'
+                      : 'text-ink-soft hover:bg-sand-50 hover:text-brand-navy border-l-4 border-transparent',
+                  ].join(' ')
                 }
               >
                 {item.name}

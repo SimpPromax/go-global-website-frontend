@@ -87,3 +87,33 @@
 @media (prefers-reduced-motion: reduce) {
   .marquee__track { animation: none; }
 }
+
+/* =========================================
+   GLOBAL TIDES - INVERTED CORNER EFFECT
+========================================= */
+
+@media (min-width: 768px) {
+  .inverted-corners-right {
+    --r: 32px;
+    -webkit-mask:
+      radial-gradient(circle var(--r) at 100% 0, transparent calc(var(--r) - 1px), #000 var(--r)),
+      radial-gradient(circle var(--r) at 100% 100%, transparent calc(var(--r) - 1px), #000 var(--r));
+    -webkit-mask-composite: source-in;
+    mask:
+      radial-gradient(circle var(--r) at 100% 0, transparent calc(var(--r) - 1px), #000 var(--r)),
+      radial-gradient(circle var(--r) at 100% 100%, transparent calc(var(--r) - 1px), #000 var(--r));
+    mask-composite: intersect;
+  }
+
+  .inverted-corners-left {
+    --r: 32px;
+    -webkit-mask:
+      radial-gradient(circle var(--r) at 0 0, transparent calc(var(--r) - 1px), #000 var(--r)),
+      radial-gradient(circle var(--r) at 0 100%, transparent calc(var(--r) - 1px), #000 var(--r));
+    -webkit-mask-composite: source-in;
+    mask:
+      radial-gradient(circle var(--r) at 0 0, transparent calc(var(--r) - 1px), #000 var(--r)),
+      radial-gradient(circle var(--r) at 0 100%, transparent calc(var(--r) - 1px), #000 var(--r));
+    mask-composite: intersect;
+  }
+}

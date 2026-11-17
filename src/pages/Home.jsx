@@ -35,6 +35,8 @@ const universities = [
 export default function Home() {
   const heroRef = useRef(null)
   const [hovered, setHovered] = useState({})
+  // Destinations hover: card index per row — key = rowIndex
+  const [hoveredDest, setHoveredDest] = useState({})
 
   useGSAP(() => {
     const tl = gsap.timeline()
@@ -86,12 +88,32 @@ export default function Home() {
     { name: 'Germany', image: 'https://images.unsplash.com/photo-1560969184-10fe8719e047?q=80&w=800&auto=format&fit=crop' },
   ]
 
+  // Chunk destinations into rows of 4 for the expanding desktop layout
+  const destinationRows = []
+  for (let i = 0; i < topDestinations.length; i += 4) {
+    destinationRows.push(topDestinations.slice(i, i + 4))
+  }
+
+  // Services row hover handlers
   const handleRowEnter = (rowIndex, cardIndex) => {
     setHovered((prev) => ({ ...prev, [rowIndex]: cardIndex }))
   }
 
   const handleRowLeave = (rowIndex) => {
     setHovered((prev) => {
+      const next = { ...prev }
+      delete next[rowIndex]
+      return next
+    })
+  }
+
+  // Destinations row hover handlers
+  const handleDestCardEnter = (rowIndex, cardIndex) => {
+    setHoveredDest((prev) => ({ ...prev, [rowIndex]: cardIndex }))
+  }
+
+  const handleDestRowLeave = (rowIndex) => {
+    setHoveredDest((prev) => {
       const next = { ...prev }
       delete next[rowIndex]
       return next
@@ -329,57 +351,54 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4 ── HOW TO APPLY (cream / sand-50) */}
-
-<section className="bg-sand-50">
-  <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:py-28">
-    <div className="lg:sticky lg:top-32 lg:self-start">
-      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-teal-light text-brand-teal text-sm font-semibold mb-5">
-        <FontAwesomeIcon icon={faCheckCircle} className="w-4 h-4" />
-        How we help
-      </div>
-      <h2 className="max-w-2xl text-3xl font-display font-extrabold leading-[1.15] tracking-tight text-balance text-brand-navy sm:text-4xl lg:text-[2.75rem]">
-        Support for every step that needs a clearer answer.
-      </h2>
-      <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
-        From comparing courses to preparing for departure, our counsellors help you understand your options and complete each stage with greater confidence.
-      </p>
-      <div className="mt-9">
-        <Link
-          to="/services"
-          className="btn-primary min-h-0 border-0 px-7 py-3.5 text-base font-semibold group"
-        >
-          See how we can help
-          <FontAwesomeIcon icon={faArrowRight} className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-        </Link>
-      </div>
-    </div>
-
-    <ol className="relative space-y-4">
-      <div className="absolute left-5 top-2 bottom-2 w-px bg-linear-to-b from-brand-navy/60 via-brand-teal/50 to-transparent" aria-hidden="true"></div>
-
-      {steps.map((step, i) => (
-        <li key={i} className="relative">
-          <div className="relative flex gap-5 rounded-2xl bg-white/70 p-5 pl-4 border border-transparent">
-            <div className="relative z-10 flex flex-col items-center">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-navy text-sm font-bold text-white ring-4 ring-sand-50">
-                {step.number}
-              </span>
+      {/* 4 HOW WE HELP */}
+      <section className="bg-sand-50">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:py-28">
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-teal-light text-brand-teal text-sm font-semibold mb-5">
+              <FontAwesomeIcon icon={faCheckCircle} className="w-4 h-4" />
+              How we help
             </div>
-            <div className="pt-0.5">
-              <h3 className="text-lg font-display font-extrabold tracking-tight text-brand-navy lg:text-xl">
-                {step.title}
-              </h3>
-              <p className="mt-1.5 leading-relaxed text-ink-soft">
-                {step.desc}
-              </p>
+            <h2 className="max-w-2xl text-3xl font-display font-extrabold leading-[1.15] tracking-tight text-balance text-brand-navy sm:text-4xl lg:text-[2.75rem]">
+              Support for every step that needs a clearer answer.
+            </h2>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+              From comparing courses to preparing for departure, our counsellors help you understand your options and complete each stage with greater confidence.
+            </p>
+            <div className="mt-9">
+              <Link
+                to="/services"
+                className="btn-primary min-h-0 border-0 px-7 py-3.5 text-base font-semibold group"
+              >
+                See how we can help
+                <FontAwesomeIcon icon={faArrowRight} className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           </div>
-        </li>
-      ))}
-    </ol>
-  </div>
-</section>
+
+          <ol className="relative space-y-4">
+            {steps.map((step, i) => (
+              <li key={i} className="relative">
+                <div className="relative flex gap-5 rounded-2xl bg-white/70 p-5 pl-4 border border-transparent">
+                  <div className="relative z-10 flex flex-col items-center">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-navy text-sm font-bold text-white">
+                      {step.number}
+                    </span>
+                  </div>
+                  <div className="pt-0.5">
+                    <h3 className="text-lg font-display font-extrabold tracking-tight text-brand-navy lg:text-xl">
+                      {step.title}
+                    </h3>
+                    <p className="mt-1.5 leading-relaxed text-ink-soft">
+                      {step.desc}
+                    </p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
 
       {/* 5 ── DESTINATIONS (grey / sand-100) */}
       <section className="py-24 bg-sand-100">
@@ -403,7 +422,49 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Desktop: expanding rows of 4 — fixed h-80 cards, only width animates */}
+          <div className="hidden lg:flex lg:flex-col gap-6">
+            {destinationRows.map((row, rowIndex) => (
+              <div
+                key={rowIndex}
+                className="flex items-stretch gap-6"
+                onMouseLeave={() => handleDestRowLeave(rowIndex)}
+              >
+                {row.map((dest, i) => {
+                  const isHovered = hoveredDest[rowIndex] === i
+                  const isOther = hoveredDest[rowIndex] !== undefined && hoveredDest[rowIndex] !== i
+                  return (
+                    <Link
+                      key={i}
+                      to="/destinations"
+                      onMouseEnter={() => handleDestCardEnter(rowIndex, i)}
+                      style={{ flexGrow: isHovered ? 5 : isOther ? 3 : 4 }}
+                      className="group relative overflow-hidden h-80 block shadow-sm hover:shadow-2xl transition-all duration-500 ease-out ring-1 ring-brand-navy/5 hover:ring-brand-gold/60 basis-0 min-w-0 self-stretch"
+                    >
+                      <img
+                        src={dest.image}
+                        alt={dest.name}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-linear-to-t from-brand-navy via-brand-navy/60 to-brand-teal/10"></div>
+
+                      <div className="absolute bottom-0 left-0 p-8 w-full">
+                        <div className="flex justify-between items-end">
+                          <h3 className="text-2xl font-display font-extrabold tracking-tight text-white">{dest.name}</h3>
+                          <div className="w-10 h-10 bg-brand-gold flex items-center justify-center text-brand-navy transform translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300 shrink-0">
+                            <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  )
+                })}
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile / tablet: standard grid, no expand */}
+          <div className="grid sm:grid-cols-2 gap-6 lg:hidden">
             {topDestinations.map((dest, i) => (
               <Link
                 key={i}

@@ -20,6 +20,20 @@ import {
 
 export default function HowToApply() {
   const [openFaq, setOpenFaq] = useState(null)
+  // Documents: hovered card per row — key = `docs-${rowIndex}`
+  const [hoveredDocs, setHoveredDocs] = useState({})
+
+  const handleDocCardEnter = (key, cardIndex) => {
+    setHoveredDocs((prev) => ({ ...prev, [key]: cardIndex }))
+  }
+
+  const handleDocRowLeave = (key) => {
+    setHoveredDocs((prev) => {
+      const next = { ...prev }
+      delete next[key]
+      return next
+    })
+  }
 
   const steps = [
     { 
@@ -66,6 +80,12 @@ export default function HowToApply() {
     { title: 'Valid Passport', icon: faPassport, desc: 'Must be valid for at least 6 months beyond your intended stay.' },
     { title: 'English Proficiency', icon: faLanguage, desc: 'IELTS, TOEFL, or equivalent test scores (if applicable).' }
   ]
+
+  // Chunk documents into rows of 4 for the expanding desktop layout
+  const documentRows = []
+  for (let i = 0; i < documents.length; i += 4) {
+    documentRows.push(documents.slice(i, i + 4))
+  }
 
   const faqs = [
     {
@@ -139,28 +159,17 @@ export default function HowToApply() {
             </p>
           </div>
 
-          <div className="relative border-l-2 border-sand-200 ml-6 md:ml-0 md:space-y-0">
+          <div className="relative border-l-2 border-sand-200 ml-6">
             {steps.map((step, index) => (
-              <div key={index} className="relative pl-10 pb-12 last:pb-0 md:flex md:gap-8 md:pl-0">
+              <div key={index} className="relative pl-10 pb-12 last:pb-0">
                 
-                {/* Desktop Icon */}
-                <div className="hidden md:flex flex-col items-center w-24 relative">
-                  <div className="w-16 h-16 rounded-full bg-brand-teal-light text-brand-teal flex items-center justify-center text-2xl z-10 border-4 border-white shadow-sm relative">
-                    <FontAwesomeIcon icon={step.icon} />
-                    {/* Connector line for desktop */}
-                    {index !== steps.length - 1 && (
-                      <div className="absolute top-16 w-0.5 h-[calc(100%+2rem)] bg-sand-200 -z-10"></div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Mobile Icon */}
-                <div className="absolute -left-5.75 top-0 md:hidden w-10 h-10 rounded-full bg-brand-teal-light text-brand-teal flex items-center justify-center text-lg border-4 border-white shadow-sm">
+                {/* Icon on the timeline line — same for all breakpoints */}
+                <div className="absolute -left-5.75 top-0 w-10 h-10 rounded-full bg-brand-teal-light text-brand-teal flex items-center justify-center text-lg border-4 border-white shadow-sm">
                   <FontAwesomeIcon icon={step.icon} />
                 </div>
 
                 {/* Content */}
-                <div className="md:pt-3">
+                <div>
                   <h3 className="flex items-center gap-3 text-xl font-display font-extrabold tracking-tight text-brand-navy mb-2">
                     <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-brand-navy text-white text-sm font-bold shrink-0">
                       {index + 1}
@@ -199,17 +208,57 @@ export default function HowToApply() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Desktop: expanding rows of 4 — fixed content height locks row, only width animates */}
+          <div className="hidden lg:flex lg:flex-col gap-6">
+            {documentRows.map((row, rowIndex) => {
+              const key = `docs-${rowIndex}`
+              return (
+                <div
+                  key={rowIndex}
+                  className="flex items-stretch gap-6"
+                  onMouseLeave={() => handleDocRowLeave(key)}
+                >
+                  {row.map((doc, i) => {
+                    const isHovered = hoveredDocs[key] === i
+                    const isOther = hoveredDocs[key] !== undefined && hoveredDocs[key] !== i
+                    return (
+                      <div
+                        key={i}
+                        onMouseEnter={() => handleDocCardEnter(key, i)}
+                        style={{ flexGrow: isHovered ? 5 : isOther ? 3 : 4 }}
+                        className="group bg-white p-8 pb-4 h-[260px] shadow-lg hover:shadow-2xl text-center transition-all duration-500 ease-out ring-1 ring-white/0 hover:ring-white/40 flex flex-col items-center self-stretch basis-0 min-w-0 overflow-hidden"
+                      >
+                        <div className="w-14 h-14 shrink-0 rounded-full bg-brand-teal-light text-brand-teal flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors duration-300">
+                          <FontAwesomeIcon icon={doc.icon} />
+                        </div>
+                        <h3 className="text-lg font-display font-extrabold tracking-tight text-brand-navy mb-2 line-clamp-2">
+                          {doc.title}
+                        </h3>
+                        <p className="text-sm text-ink-soft leading-relaxed line-clamp-3">
+                          {doc.desc}
+                        </p>
+                      </div>
+                    )
+                  })}
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Mobile / tablet: standard grid, equal rows via auto-rows-fr */}
+          <div className="grid md:grid-cols-2 auto-rows-fr gap-6 lg:hidden">
             {documents.map((doc, i) => (
-              <div 
-                key={i} 
-                className="group bg-white p-8 shadow-lg hover:shadow-2xl text-center transition-all duration-300 ring-1 ring-white/0 hover:ring-white/40 hover:-translate-y-1"
+              <div
+                key={i}
+                className="group bg-white p-8 shadow-lg hover:shadow-2xl text-center transition-all duration-300 ring-1 ring-white/0 hover:ring-white/40 hover:-translate-y-1 flex flex-col h-full self-stretch"
               >
-                <div className="w-14 h-14 mx-auto rounded-full bg-brand-teal-light text-brand-teal flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors duration-300">
+                <div className="w-14 h-14 shrink-0 mx-auto rounded-full bg-brand-teal-light text-brand-teal flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors duration-300">
                   <FontAwesomeIcon icon={doc.icon} />
                 </div>
-                <h3 className="text-lg font-display font-extrabold tracking-tight text-brand-navy mb-2">{doc.title}</h3>
-                <p className="text-sm text-ink-soft leading-relaxed">{doc.desc}</p>
+                <h3 className="text-lg font-display font-extrabold tracking-tight text-brand-navy mb-2 line-clamp-2">
+                  {doc.title}
+                </h3>
+                <p className="text-sm text-ink-soft leading-relaxed line-clamp-3">{doc.desc}</p>
               </div>
             ))}
           </div>
