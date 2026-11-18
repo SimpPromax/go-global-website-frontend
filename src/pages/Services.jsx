@@ -28,7 +28,7 @@ const ServiceCard = ({ service, isHovered, isOther, onMouseEnter }) => (
     className="group bg-white rounded-xl2 border border-sand-200 shadow-sm hover:shadow-xl hover:border-brand-teal/40 transition-all duration-500 ease-out flex flex-col self-stretch basis-0 min-w-0 relative overflow-hidden ring-1 ring-brand-navy/0 hover:ring-brand-gold/40"
   >
     {/* SECTION 1 — fixed height; cannot change on width reflow */}
-    <div className="p-8 pb-4 h-[280px] flex flex-col overflow-hidden">
+    <div className="p-8 pb-4 h-70 flex flex-col overflow-hidden">
       <div className="w-14 h-14 shrink-0 rounded-xl bg-brand-teal-light text-brand-teal flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-gold group-hover:text-brand-navy group-hover:scale-110 transition-all duration-300">
         <FontAwesomeIcon icon={service.icon} />
       </div>

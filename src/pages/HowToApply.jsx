@@ -226,7 +226,7 @@ export default function HowToApply() {
                         key={i}
                         onMouseEnter={() => handleDocCardEnter(key, i)}
                         style={{ flexGrow: isHovered ? 5 : isOther ? 3 : 4 }}
-                        className="group bg-white p-8 pb-4 h-[260px] shadow-lg hover:shadow-2xl text-center transition-all duration-500 ease-out ring-1 ring-white/0 hover:ring-white/40 flex flex-col items-center self-stretch basis-0 min-w-0 overflow-hidden"
+                        className="group bg-white p-8 pb-4 h-65 shadow-lg hover:shadow-2xl text-center transition-all duration-500 ease-out ring-1 ring-white/0 hover:ring-white/40 flex flex-col items-center self-stretch basis-0 min-w-0 overflow-hidden"
                       >
                         <div className="w-14 h-14 shrink-0 rounded-full bg-brand-teal-light text-brand-teal flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-gold group-hover:text-brand-navy transition-colors duration-300">
                           <FontAwesomeIcon icon={doc.icon} />
