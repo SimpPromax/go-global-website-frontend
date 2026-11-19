@@ -172,59 +172,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2 ── UNIVERSITY NETWORK (cream / sand-50) */}
-      <section className="py-24 bg-sand-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-teal-light text-brand-teal text-sm font-semibold mb-4">
-              <FontAwesomeIcon icon={faCheckCircle} className="w-4 h-4" />
-              Our University Network
-            </div>
-            <h2 className="text-3xl md:text-4xl font-display font-extrabold tracking-tight text-brand-navy mb-4">
-              600+ university profiles.
-              <br />
-              50 study destinations.
-            </h2>
-          </div>
-        </div>
+{/* 2 ── UNIVERSITY NETWORK (cream / sand-50) */}
+<section className="py-24 bg-sand-50 overflow-hidden">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center max-w-2xl mx-auto mb-12">
+      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-teal-light text-brand-teal text-sm font-semibold mb-4">
+        <FontAwesomeIcon icon={faCheckCircle} className="w-4 h-4" />
+        Our University Network
+      </div>
+      <h2 className="text-3xl md:text-4xl font-display font-extrabold tracking-tight text-brand-navy mb-4">
+        600+ university profiles.
+        <br />
+        50 study destinations.
+      </h2>
+    </div>
+  </div>
 
-        <div className="relative w-full">
-          <div className="marquee">
-            <div className="marquee__track">
-              {[...universities, ...universities].map((uni, i) => (
-                <div
-                  key={`${uni.slug}-${i}`}
-                  className="marquee__item"
-                  aria-hidden={i >= universities.length ? 'true' : undefined}
-                >
-                  <Link
-                    to={`/universities/${uni.country}/${uni.slug}`}
-                    aria-label={uni.name}
-                    className="group flex items-center justify-center h-24 w-full px-4 transition-opacity duration-300"
-                  >
-                    <img
-                      src={uni.logo}
-                      alt={uni.name}
-                      loading="lazy"
-                      className="max-h-14 w-auto object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-                    />
-                  </Link>
-                </div>
-              ))}
-            </div>
+  <div className="relative w-full">
+    <div className="marquee">
+      <div className="marquee__track">
+        {[...universities, ...universities].map((uni, i) => (
+          <div
+            key={`${uni.slug}-${i}`}
+            className="marquee__item"
+            aria-hidden={i >= universities.length ? 'true' : undefined}
+          >
+            <Link
+              to="/destinations"
+              aria-label={uni.name}
+              className="group flex items-center justify-center h-24 w-full px-4 transition-opacity duration-300"
+            >
+              <img
+                src={uni.logo}
+                alt={uni.name}
+                loading="lazy"
+                className="max-h-14 w-auto object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+              />
+            </Link>
           </div>
-        </div>
+        ))}
+      </div>
+    </div>
+  </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 text-center">
-          <p className="text-ink-soft mb-6">
-            Explore the full network and find where you belong.
-          </p>
-          <Link to="/destinations" className="btn-secondary group">
-            View All Universities
-            <FontAwesomeIcon icon={faArrowRight} className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
-      </section>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 text-center">
+    <p className="text-ink-soft mb-6">
+      Explore the full network and find where you belong.
+    </p>
+    <Link to="/destinations" className="btn-secondary group">
+      View All Universities
+      <FontAwesomeIcon icon={faArrowRight} className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+    </Link>
+  </div>
+</section>
 
       {/* 3 ── OUR SERVICES (vivid electric blue #2251FF section bg, white cards) */}
       <section className="py-24 bg-[#2251FF] relative overflow-hidden">
